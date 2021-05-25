@@ -5,15 +5,15 @@ import {
 
 import {Personajes} from "./Personajes"
 import {Planetas} from "./Planetas"
-import {Usuario} from "./Usuario"
+import {Users} from "./Users"
 
   @Entity()
   export class Favoritos extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
   
-    @ManyToOne(() => Usuario, usuario => usuario.id)
-    usuarioId: Usuario;
+    @ManyToOne(() => Users, usuario => usuario.id)
+    usuarioId: Users;
 
     @OneToOne(() => Personajes)
     @JoinColumn()

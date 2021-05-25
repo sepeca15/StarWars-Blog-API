@@ -28,7 +28,7 @@ exports.Favoritos = void 0;
 var typeorm_1 = require("typeorm");
 var Personajes_1 = require("./Personajes");
 var Planetas_1 = require("./Planetas");
-var Usuario_1 = require("./Usuario");
+var Users_1 = require("./Users");
 var Favoritos = /** @class */ (function (_super) {
     __extends(Favoritos, _super);
     function Favoritos() {
@@ -39,8 +39,8 @@ var Favoritos = /** @class */ (function (_super) {
         __metadata("design:type", Number)
     ], Favoritos.prototype, "id");
     __decorate([
-        typeorm_1.ManyToOne(function () { return Usuario_1.Usuario; }, function (usuario) { return usuario.id; }),
-        __metadata("design:type", Usuario_1.Usuario)
+        typeorm_1.ManyToOne(function () { return Users_1.Users; }, function (usuario) { return usuario.id; }),
+        __metadata("design:type", Users_1.Users)
     ], Favoritos.prototype, "usuarioId");
     __decorate([
         typeorm_1.OneToOne(function () { return Personajes_1.Personajes; }),
