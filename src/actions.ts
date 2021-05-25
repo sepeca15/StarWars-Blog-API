@@ -35,23 +35,30 @@ export const getPersonajes = async (req: Request, res: Response): Promise<Respon
 }
 
 export const postPersonajes = async (req: Request, res: Response): Promise<Response> =>{
-    /* req.body.forEach(personaje,index => {
-        S
-    }); */
-    if(!req.body.nombre) throw new Exception("Please provide a nombre")
-    if(!req.body.altura) throw new Exception("Please provide a altura")
-    if(!req.body.peso) throw new Exception("Please provide a peso")
-    if(!req.body.color_de_pelo) throw new Exception("Please provide an color_de_pelo")
-    if(!req.body.color_de_ojo) throw new Exception("Please provide a color_de_ojo")
-    if(!req.body.fecha_nacimiento) throw new Exception("Please provide a fecha_nacimiento")
-    if(!req.body.genero) throw new Exception("Please provide a genero")
-    if(!req.body.img_url) throw new Exception("Please provide a img_url")
-
-    const personajesRepo = getRepository(Personajes)
-    const personaje = await personajesRepo.findOne({ where: {nombre:req.body.nombre}})
-    if(personaje) throw new Exception("Ese persoanaje ya existe")
-
-    const newPersonaje = getRepository(Personajes).create(req.body);
-    const results = await getRepository(Personajes).save(newPersonaje);
-	return res.json(results);
+    let results = []
+    for (let index = 0; index < req.body.length; index++) {
+        
+        if(!req.body[index].nombre) results.push(`Please provide a nombre ${index}`) 
+        if(!req.body[index].altura) results.push(`Please provide a altura ${index}`)
+        if(!req.body[index].peso) results.push(`Please provide a peso ${index}`)
+        if(!req.body[index].color_de_pelo) results.push(`Please provide an color_de_pelo ${index}`)
+        if(!req.body[index].color_de_piel) results.push(`Please provide an color_de_piel ${index}`)
+        if(!req.body[index].color_de_ojo) results.push(`Please provide a color_de_ojo ${index}`)
+        if(!req.body[index].fecha_nacimiento) results.push(`Please provide a fecha_nacimiento ${index}`)
+        if(!req.body[index].genero) results.push(`Please provide a genero ${index}`)
+        if(!req.body[index].descripcion) results.push(`Please provide a descripcion ${index}`)
+        if(!req.body[index].img_url) results.push(`Please provide a img_url ${index}`)
+    
+        const personajesRepo = getRepository(Personajes)
+        const personaje = await personajesRepo.findOne({ where: {nombre:req.body[index].nombre}})
+        console.log(personaje)
+        if(personaje)results.push("Ese personaje ya existe")
+        else if(!req.body[index].nombre||!req.body[index].altura||!req.body[index].peso||!req.body[index].color_de_pelo||!req.body[index].color_de_piel||!req.body[index].color_de_ojo||!req.body[index].fecha_nacimiento||!req.body[index].genero||!req.body[index].descripcion||!req.body[index].img_url){
+            results.push(`el personaje ${req.body[index].nombre} no se guardo`)
+        } else {
+        const newPersonaje = getRepository(Personajes).create(req.body[index]);
+        results.push(await getRepository(Personajes).save(newPersonaje))
+        } 
+    }  
+    return res.json(results);
 }

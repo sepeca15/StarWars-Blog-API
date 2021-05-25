@@ -97,40 +97,58 @@ var getPersonajes = function (req, res) { return __awaiter(void 0, void 0, void 
 }); };
 exports.getPersonajes = getPersonajes;
 var postPersonajes = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var personajesRepo, personaje, newPersonaje, results;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var results, index, personajesRepo, personaje, newPersonaje, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
-                /* req.body.forEach(personaje,index => {
-                    S
-                }); */
-                if (!req.body.nombre)
-                    throw new utils_1.Exception("Please provide a nombre");
-                if (!req.body.altura)
-                    throw new utils_1.Exception("Please provide a altura");
-                if (!req.body.peso)
-                    throw new utils_1.Exception("Please provide a peso");
-                if (!req.body.color_de_pelo)
-                    throw new utils_1.Exception("Please provide an color_de_pelo");
-                if (!req.body.color_de_ojo)
-                    throw new utils_1.Exception("Please provide a color_de_ojo");
-                if (!req.body.fecha_nacimiento)
-                    throw new utils_1.Exception("Please provide a fecha_nacimiento");
-                if (!req.body.genero)
-                    throw new utils_1.Exception("Please provide a genero");
-                if (!req.body.img_url)
-                    throw new utils_1.Exception("Please provide a img_url");
-                personajesRepo = typeorm_1.getRepository(Personajes_1.Personajes);
-                return [4 /*yield*/, personajesRepo.findOne({ where: { nombre: req.body.nombre } })];
+                results = [];
+                index = 0;
+                _c.label = 1;
             case 1:
-                personaje = _a.sent();
-                if (personaje)
-                    throw new utils_1.Exception("Ese persoanaje ya existe");
-                newPersonaje = typeorm_1.getRepository(Personajes_1.Personajes).create(req.body);
-                return [4 /*yield*/, typeorm_1.getRepository(Personajes_1.Personajes).save(newPersonaje)];
+                if (!(index < req.body.length)) return [3 /*break*/, 7];
+                if (!req.body[index].nombre)
+                    results.push("Please provide a nombre " + index);
+                if (!req.body[index].altura)
+                    results.push("Please provide a altura " + index);
+                if (!req.body[index].peso)
+                    results.push("Please provide a peso " + index);
+                if (!req.body[index].color_de_pelo)
+                    results.push("Please provide an color_de_pelo " + index);
+                if (!req.body[index].color_de_piel)
+                    results.push("Please provide an color_de_piel " + index);
+                if (!req.body[index].color_de_ojo)
+                    results.push("Please provide a color_de_ojo " + index);
+                if (!req.body[index].fecha_nacimiento)
+                    results.push("Please provide a fecha_nacimiento " + index);
+                if (!req.body[index].genero)
+                    results.push("Please provide a genero " + index);
+                if (!req.body[index].descripcion)
+                    results.push("Please provide a descripcion " + index);
+                if (!req.body[index].img_url)
+                    results.push("Please provide a img_url " + index);
+                personajesRepo = typeorm_1.getRepository(Personajes_1.Personajes);
+                return [4 /*yield*/, personajesRepo.findOne({ where: { nombre: req.body[index].nombre } })];
             case 2:
-                results = _a.sent();
-                return [2 /*return*/, res.json(results)];
+                personaje = _c.sent();
+                console.log(personaje);
+                if (!personaje) return [3 /*break*/, 3];
+                results.push("Ese personaje ya existe");
+                return [3 /*break*/, 6];
+            case 3:
+                if (!(!req.body[index].nombre || !req.body[index].altura || !req.body[index].peso || !req.body[index].color_de_pelo || !req.body[index].color_de_piel || !req.body[index].color_de_ojo || !req.body[index].fecha_nacimiento || !req.body[index].genero || !req.body[index].descripcion || !req.body[index].img_url)) return [3 /*break*/, 4];
+                results.push("el personaje " + req.body[index].nombre + " no se guardo");
+                return [3 /*break*/, 6];
+            case 4:
+                newPersonaje = typeorm_1.getRepository(Personajes_1.Personajes).create(req.body[index]);
+                _b = (_a = results).push;
+                return [4 /*yield*/, typeorm_1.getRepository(Personajes_1.Personajes).save(newPersonaje)];
+            case 5:
+                _b.apply(_a, [_c.sent()]);
+                _c.label = 6;
+            case 6:
+                index++;
+                return [3 /*break*/, 1];
+            case 7: return [2 /*return*/, res.json(results)];
         }
     });
 }); };
