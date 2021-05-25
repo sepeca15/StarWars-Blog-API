@@ -8,7 +8,7 @@
  */
 import { Router } from 'express';
 import { safe } from './utils';
-import { createUser, getPersonajes, postPersonajes, getPlanetas, postPlanetas } from './actions';
+import { createUser, getPersonajes, postPersonajes, getPlanetas, postPlanetas, login } from './actions';
 
 const router = Router();
 
@@ -18,5 +18,6 @@ router.get('/personajes', safe(getPersonajes));
 router.post('/personajes', safe(postPersonajes));
 router.get('/planetas', safe(getPlanetas));
 router.post('/planetas', safe(postPlanetas));
+router.post('/login',safe(login))
 
 export default router;
