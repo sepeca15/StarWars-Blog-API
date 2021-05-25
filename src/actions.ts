@@ -62,3 +62,37 @@ export const postPersonajes = async (req: Request, res: Response): Promise<Respo
     }  
     return res.json(results);
 }
+
+export const getPlanetas = async (req: Request, res: Response): Promise<Response> =>{
+        const planetas = await getRepository(Planetas).find();
+		return res.json(planetas);
+}
+
+export const postPlanetas = async (req: Request, res: Response): Promise<Response> =>{
+    let results = []
+    for (let index = 0; index < req.body.length; index++) {
+        
+        if(!req.body[index].nombre) results.push(`Please provide a nombre ${index}`) 
+        if(!req.body[index].diametro) results.push(`Please provide a diametro ${index}`)
+        if(!req.body[index].periodo_de_rotacion) results.push(`Please provide a periodo_de_rotacion ${index}`)
+        if(!req.body[index].periodo_orbital) results.push(`Please provide an periodo_orbital ${index}`)
+        if(!req.body[index].gravedad) results.push(`Please provide an gravedad ${index}`)
+        if(!req.body[index].poblacion) results.push(`Please provide a poblacion ${index}`)
+        if(!req.body[index].clima) results.push(`Please provide a clima ${index}`)
+        if(!req.body[index].terreno) results.push(`Please provide a terreno ${index}`)
+        if(!req.body[index].agua_en_la_superficie) results.push(`Please provide a agua_en_la_superficie ${index}`)
+        if(!req.body[index].img_url) results.push(`Please provide a img_url ${index}`)
+    
+        const planetasRepo = getRepository(Planetas)
+        const planeta = await planetasRepo.findOne({ where: {nombre:req.body[index].nombre}})
+        console.log(planeta)
+        if(planeta)results.push("Ese planeta ya existe")
+        else if(!req.body[index].nombre||!req.body[index].diametro||!req.body[index].periodo_de_rotacion||!req.body[index].periodo_orbital||!req.body[index].gravedad||!req.body[index].poblacion||!req.body[index].clima||!req.body[index].terreno||!req.body[index].agua_en_la_superficie||!req.body[index].img_url){
+            results.push(`el planeta ${req.body[index].nombre} no se guardo`)
+        } else {
+        const newPlaneta = getRepository(Planetas).create(req.body[index]);
+        results.push(await getRepository(Planetas).save(newPlaneta))
+        } 
+    }  
+    return res.json(results);
+}

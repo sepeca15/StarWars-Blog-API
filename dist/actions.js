@@ -36,10 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.postPersonajes = exports.getPersonajes = exports.getUsers = exports.createUser = void 0;
+exports.postPlanetas = exports.getPlanetas = exports.postPersonajes = exports.getPersonajes = exports.getUsers = exports.createUser = void 0;
 var typeorm_1 = require("typeorm"); // getRepository"  traer una tabla de la base de datos asociada al objeto
 var Users_1 = require("./entities/Users");
 var utils_1 = require("./utils");
+var Planetas_1 = require("./entities/Planetas");
 var Personajes_1 = require("./entities/Personajes");
 var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var userRepo, user, newUser, results;
@@ -153,3 +154,72 @@ var postPersonajes = function (req, res) { return __awaiter(void 0, void 0, void
     });
 }); };
 exports.postPersonajes = postPersonajes;
+var getPlanetas = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var planetas;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Planetas_1.Planetas).find()];
+            case 1:
+                planetas = _a.sent();
+                return [2 /*return*/, res.json(planetas)];
+        }
+    });
+}); };
+exports.getPlanetas = getPlanetas;
+var postPlanetas = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var results, index, planetasRepo, planeta, newPlaneta, _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                results = [];
+                index = 0;
+                _c.label = 1;
+            case 1:
+                if (!(index < req.body.length)) return [3 /*break*/, 7];
+                if (!req.body[index].nombre)
+                    results.push("Please provide a nombre " + index);
+                if (!req.body[index].diametro)
+                    results.push("Please provide a diametro " + index);
+                if (!req.body[index].periodo_de_rotacion)
+                    results.push("Please provide a periodo_de_rotacion " + index);
+                if (!req.body[index].periodo_orbital)
+                    results.push("Please provide an periodo_orbital " + index);
+                if (!req.body[index].gravedad)
+                    results.push("Please provide an gravedad " + index);
+                if (!req.body[index].poblacion)
+                    results.push("Please provide a poblacion " + index);
+                if (!req.body[index].clima)
+                    results.push("Please provide a clima " + index);
+                if (!req.body[index].terreno)
+                    results.push("Please provide a terreno " + index);
+                if (!req.body[index].agua_en_la_superficie)
+                    results.push("Please provide a agua_en_la_superficie " + index);
+                if (!req.body[index].img_url)
+                    results.push("Please provide a img_url " + index);
+                planetasRepo = typeorm_1.getRepository(Planetas_1.Planetas);
+                return [4 /*yield*/, planetasRepo.findOne({ where: { nombre: req.body[index].nombre } })];
+            case 2:
+                planeta = _c.sent();
+                console.log(planeta);
+                if (!planeta) return [3 /*break*/, 3];
+                results.push("Ese planeta ya existe");
+                return [3 /*break*/, 6];
+            case 3:
+                if (!(!req.body[index].nombre || !req.body[index].diametro || !req.body[index].periodo_de_rotacion || !req.body[index].periodo_orbital || !req.body[index].gravedad || !req.body[index].poblacion || !req.body[index].clima || !req.body[index].terreno || !req.body[index].agua_en_la_superficie || !req.body[index].img_url)) return [3 /*break*/, 4];
+                results.push("el planeta " + req.body[index].nombre + " no se guardo");
+                return [3 /*break*/, 6];
+            case 4:
+                newPlaneta = typeorm_1.getRepository(Planetas_1.Planetas).create(req.body[index]);
+                _b = (_a = results).push;
+                return [4 /*yield*/, typeorm_1.getRepository(Planetas_1.Planetas).save(newPlaneta)];
+            case 5:
+                _b.apply(_a, [_c.sent()]);
+                _c.label = 6;
+            case 6:
+                index++;
+                return [3 /*break*/, 1];
+            case 7: return [2 /*return*/, res.json(results)];
+        }
+    });
+}); };
+exports.postPlanetas = postPlanetas;
