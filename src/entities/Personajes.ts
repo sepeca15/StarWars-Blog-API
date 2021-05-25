@@ -1,10 +1,10 @@
 import {
     Entity, Column, PrimaryGeneratedColumn, OneToMany, 
-    BaseEntity, JoinTable
+    BaseEntity, JoinTable, OneToOne
   } from 'typeorm';
-  
-import {Favoritos} from "./Favortios"
 
+import {Favoritos} from "./Favortios"
+  
   @Entity()
   export class Personajes extends BaseEntity{
     @PrimaryGeneratedColumn()
@@ -14,30 +14,32 @@ import {Favoritos} from "./Favortios"
     nombre: string;
   
     @Column()
-    diametro: string;
+    altura: string;
 
     @Column()
-    periodo_de_rotacion: string;
+    peso: string;
 
     @Column()
-    periodo_orbital: string;
+    color_de_pelo: string;
+  
+    @Column()
+    color_de_piel: string;
 
     @Column()
-    gravedad: string;
+    color_de_ojo: string;
 
     @Column()
-    poblacion: string;
+    fecha_nacimiento: string;
+  
+    @Column()
+    genero: string;
 
     @Column()
-    clima: string;
-
-    @Column()
-    terreno: string;
-
-    @Column()
-    agua_en_la_superficie: string;
+    descripcion: string;
 
     @Column()
     img_url: string;
-    
+  
+    @OneToMany(() => Favoritos, favoritos => favoritos.id)
+    favoritos: Favoritos[];
   }

@@ -26,6 +26,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 exports.__esModule = true;
 exports.Planetas = void 0;
 var typeorm_1 = require("typeorm");
+var Favortios_1 = require("./Favortios");
 var Planetas = /** @class */ (function (_super) {
     __extends(Planetas, _super);
     function Planetas() {
@@ -42,39 +43,43 @@ var Planetas = /** @class */ (function (_super) {
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "altura");
+    ], Planetas.prototype, "diametro");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "peso");
+    ], Planetas.prototype, "periodo_de_rotacion");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "color_de_pelo");
+    ], Planetas.prototype, "periodo_orbital");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "color_de_piel");
+    ], Planetas.prototype, "gravedad");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "color_de_ojo");
+    ], Planetas.prototype, "poblacion");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "fecha_nacimiento");
+    ], Planetas.prototype, "clima");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "genero");
+    ], Planetas.prototype, "terreno");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Planetas.prototype, "descripcion");
+    ], Planetas.prototype, "agua_en_la_superficie");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
     ], Planetas.prototype, "img_url");
+    __decorate([
+        typeorm_1.OneToMany(function () { return Favortios_1.Favoritos; }, function (favoritos) { return favoritos.id; }),
+        __metadata("design:type", Array)
+    ], Planetas.prototype, "favoritos");
     Planetas = __decorate([
         typeorm_1.Entity()
     ], Planetas);

@@ -26,8 +26,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 exports.__esModule = true;
 exports.Favoritos = void 0;
 var typeorm_1 = require("typeorm");
-var Personajes_1 = require("./Personajes");
 var Planetas_1 = require("./Planetas");
+var Personajes_1 = require("./Personajes");
 var Users_1 = require("./Users");
 var Favoritos = /** @class */ (function (_super) {
     __extends(Favoritos, _super);
@@ -43,13 +43,11 @@ var Favoritos = /** @class */ (function (_super) {
         __metadata("design:type", Users_1.Users)
     ], Favoritos.prototype, "usuarioId");
     __decorate([
-        typeorm_1.OneToOne(function () { return Personajes_1.Personajes; }),
-        typeorm_1.JoinColumn(),
+        typeorm_1.ManyToOne(function () { return Personajes_1.Personajes; }, function (personaje) { return personaje.id; }),
         __metadata("design:type", Personajes_1.Personajes)
     ], Favoritos.prototype, "personaje");
     __decorate([
-        typeorm_1.OneToOne(function () { return Planetas_1.Planetas; }),
-        typeorm_1.JoinColumn(),
+        typeorm_1.ManyToOne(function () { return Planetas_1.Planetas; }, function (planeta) { return planeta.id; }),
         __metadata("design:type", Planetas_1.Planetas)
     ], Favoritos.prototype, "planeta");
     Favoritos = __decorate([

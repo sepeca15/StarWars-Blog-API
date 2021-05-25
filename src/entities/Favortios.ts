@@ -3,8 +3,8 @@ import {
     BaseEntity, JoinTable
   } from 'typeorm';
 
-import {Personajes} from "./Personajes"
 import {Planetas} from "./Planetas"
+import {Personajes} from "./Personajes"
 import {Users} from "./Users"
 
   @Entity()
@@ -15,12 +15,10 @@ import {Users} from "./Users"
     @ManyToOne(() => Users, usuario => usuario.id)
     usuarioId: Users;
 
-    @OneToOne(() => Personajes)
-    @JoinColumn()
+    @ManyToOne(() => Personajes, personaje => personaje.id)
     personaje: Personajes;
 
-    @OneToOne(() => Planetas)
-    @JoinColumn()
+    @ManyToOne(() => Planetas, planeta => planeta.id)
     planeta: Planetas;
 
   }

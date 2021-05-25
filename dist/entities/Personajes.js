@@ -26,6 +26,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 exports.__esModule = true;
 exports.Personajes = void 0;
 var typeorm_1 = require("typeorm");
+var Favortios_1 = require("./Favortios");
 var Personajes = /** @class */ (function (_super) {
     __extends(Personajes, _super);
     function Personajes() {
@@ -42,39 +43,43 @@ var Personajes = /** @class */ (function (_super) {
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "diametro");
+    ], Personajes.prototype, "altura");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "periodo_de_rotacion");
+    ], Personajes.prototype, "peso");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "periodo_orbital");
+    ], Personajes.prototype, "color_de_pelo");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "gravedad");
+    ], Personajes.prototype, "color_de_piel");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "poblacion");
+    ], Personajes.prototype, "color_de_ojo");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "clima");
+    ], Personajes.prototype, "fecha_nacimiento");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "terreno");
+    ], Personajes.prototype, "genero");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Personajes.prototype, "agua_en_la_superficie");
+    ], Personajes.prototype, "descripcion");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
     ], Personajes.prototype, "img_url");
+    __decorate([
+        typeorm_1.OneToMany(function () { return Favortios_1.Favoritos; }, function (favoritos) { return favoritos.id; }),
+        __metadata("design:type", Array)
+    ], Personajes.prototype, "favoritos");
     Personajes = __decorate([
         typeorm_1.Entity()
     ], Personajes);
