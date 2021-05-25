@@ -46,6 +46,8 @@ var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         switch (_a.label) {
             case 0:
                 // important validations to avoid ambiguos errors, the client needs to understand what went wrong
+                if (!req.body.user_name)
+                    throw new utils_1.Exception("Please provide a user_name");
                 if (!req.body.first_name)
                     throw new utils_1.Exception("Please provide a first_name");
                 if (!req.body.last_name)
@@ -55,7 +57,7 @@ var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 if (!req.body.password)
                     throw new utils_1.Exception("Please provide a password");
                 userRepo = typeorm_1.getRepository(Users_1.Users);
-                return [4 /*yield*/, userRepo.findOne({ where: { email: req.body.email } })];
+                return [4 /*yield*/, userRepo.findOne({ where: { email: req.body.email, user_name: req.body.email } })];
             case 1:
                 user = _a.sent();
                 if (user)

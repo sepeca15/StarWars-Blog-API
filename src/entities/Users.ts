@@ -14,7 +14,7 @@ import {Favoritos} from "./Favortios"
     user_name: string;
   
     @Column()
-    name: string;
+    first_name: string;
 
     @Column()
     last_name: string;
