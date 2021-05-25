@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.login = exports.postPlanetas = exports.getPlanetas = exports.postPersonajes = exports.getPersonajes = exports.getUsers = exports.createUser = void 0;
+exports.getPlanetaID = exports.getPersonajeID = exports.login = exports.postPlanetas = exports.getPlanetas = exports.postPersonajes = exports.getPersonajes = exports.getUsers = exports.createUser = void 0;
 var typeorm_1 = require("typeorm"); // getRepository"  traer una tabla de la base de datos asociada al objeto
 var Users_1 = require("./entities/Users");
 var utils_1 = require("./utils");
@@ -250,3 +250,27 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
     });
 }); };
 exports.login = login;
+var getPersonajeID = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var personaje;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Personajes_1.Personajes).findOne(req.params.personajeid)];
+            case 1:
+                personaje = _a.sent();
+                return [2 /*return*/, res.json(personaje)];
+        }
+    });
+}); };
+exports.getPersonajeID = getPersonajeID;
+var getPlanetaID = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var planeta;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Planetas_1.Planetas).findOne(req.params.planetaid)];
+            case 1:
+                planeta = _a.sent();
+                return [2 /*return*/, res.json(planeta)];
+        }
+    });
+}); };
+exports.getPlanetaID = getPlanetaID;

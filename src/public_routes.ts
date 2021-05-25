@@ -8,7 +8,7 @@
  */
 import { Router } from 'express';
 import { safe } from './utils';
-import { createUser, getPersonajes, postPersonajes, getPlanetas, postPlanetas, login } from './actions';
+import { createUser, getPersonajes, postPersonajes, getPlanetas, postPlanetas, login, getPersonajeID, getPlanetaID } from './actions';
 
 const router = Router();
 
@@ -19,5 +19,8 @@ router.post('/personajes', safe(postPersonajes));
 router.get('/planetas', safe(getPlanetas));
 router.post('/planetas', safe(postPlanetas));
 router.post('/login',safe(login))
+router.get('/personajes/:personajeid', safe(getPersonajeID));
+router.get('/planetas/:planetaid', safe(getPlanetaID));
+
 
 export default router;

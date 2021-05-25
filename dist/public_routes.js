@@ -18,4 +18,6 @@ router.post('/personajes', utils_1.safe(actions_1.postPersonajes));
 router.get('/planetas', utils_1.safe(actions_1.getPlanetas));
 router.post('/planetas', utils_1.safe(actions_1.postPlanetas));
 router.post('/login', utils_1.safe(actions_1.login));
+router.get('/personajes/:personajeid', utils_1.safe(actions_1.getPersonajeID));
+router.get('/planetas/:planetaid', utils_1.safe(actions_1.getPlanetaID));
 exports["default"] = router;

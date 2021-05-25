@@ -112,3 +112,13 @@ export const login = async (req: Request, res: Response): Promise<Response> =>{
 	
 	return res.json({ user, token });
 }
+
+export const getPersonajeID = async (req: Request, res: Response): Promise<Response> =>{
+        const personaje = await getRepository(Personajes).findOne(req.params.personajeid);
+		return res.json(personaje);
+}
+
+export const getPlanetaID = async (req: Request, res: Response): Promise<Response> =>{
+        const planeta = await getRepository(Planetas).findOne(req.params.planetaid);
+		return res.json(planeta);
+}
