@@ -97,28 +97,37 @@ var getPersonajes = function (req, res) { return __awaiter(void 0, void 0, void 
 }); };
 exports.getPersonajes = getPersonajes;
 var postPersonajes = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var userRepo, user, newUser, results;
+    var personajesRepo, personaje, newPersonaje, results;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!req.body.user_name)
-                    throw new utils_1.Exception("Please provide a user_name");
-                if (!req.body.first_name)
-                    throw new utils_1.Exception("Please provide a first_name");
-                if (!req.body.last_name)
-                    throw new utils_1.Exception("Please provide a last_name");
-                if (!req.body.email)
-                    throw new utils_1.Exception("Please provide an email");
-                if (!req.body.password)
-                    throw new utils_1.Exception("Please provide a password");
-                userRepo = typeorm_1.getRepository(Users_1.Users);
-                return [4 /*yield*/, userRepo.findOne({ where: { email: req.body.email, user_name: req.body.email } })];
+                /* req.body.forEach(personaje,index => {
+                    S
+                }); */
+                if (!req.body.nombre)
+                    throw new utils_1.Exception("Please provide a nombre");
+                if (!req.body.altura)
+                    throw new utils_1.Exception("Please provide a altura");
+                if (!req.body.peso)
+                    throw new utils_1.Exception("Please provide a peso");
+                if (!req.body.color_de_pelo)
+                    throw new utils_1.Exception("Please provide an color_de_pelo");
+                if (!req.body.color_de_ojo)
+                    throw new utils_1.Exception("Please provide a color_de_ojo");
+                if (!req.body.fecha_nacimiento)
+                    throw new utils_1.Exception("Please provide a fecha_nacimiento");
+                if (!req.body.genero)
+                    throw new utils_1.Exception("Please provide a genero");
+                if (!req.body.img_url)
+                    throw new utils_1.Exception("Please provide a img_url");
+                personajesRepo = typeorm_1.getRepository(Personajes_1.Personajes);
+                return [4 /*yield*/, personajesRepo.findOne({ where: { nombre: req.body.nombre } })];
             case 1:
-                user = _a.sent();
-                if (user)
-                    throw new utils_1.Exception("Users already exists with this email");
-                newUser = typeorm_1.getRepository(Users_1.Users).create(req.body);
-                return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).save(newUser)];
+                personaje = _a.sent();
+                if (personaje)
+                    throw new utils_1.Exception("Ese persoanaje ya existe");
+                newPersonaje = typeorm_1.getRepository(Personajes_1.Personajes).create(req.body);
+                return [4 /*yield*/, typeorm_1.getRepository(Personajes_1.Personajes).save(newPersonaje)];
             case 2:
                 results = _a.sent();
                 return [2 /*return*/, res.json(results)];

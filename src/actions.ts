@@ -35,17 +35,23 @@ export const getPersonajes = async (req: Request, res: Response): Promise<Respon
 }
 
 export const postPersonajes = async (req: Request, res: Response): Promise<Response> =>{
-    if(!req.body.user_name) throw new Exception("Please provide a user_name")
-	if(!req.body.first_name) throw new Exception("Please provide a first_name")
-	if(!req.body.last_name) throw new Exception("Please provide a last_name")
-	if(!req.body.email) throw new Exception("Please provide an email")
-	if(!req.body.password) throw new Exception("Please provide a password")
+    /* req.body.forEach(personaje,index => {
+        S
+    }); */
+    if(!req.body.nombre) throw new Exception("Please provide a nombre")
+    if(!req.body.altura) throw new Exception("Please provide a altura")
+    if(!req.body.peso) throw new Exception("Please provide a peso")
+    if(!req.body.color_de_pelo) throw new Exception("Please provide an color_de_pelo")
+    if(!req.body.color_de_ojo) throw new Exception("Please provide a color_de_ojo")
+    if(!req.body.fecha_nacimiento) throw new Exception("Please provide a fecha_nacimiento")
+    if(!req.body.genero) throw new Exception("Please provide a genero")
+    if(!req.body.img_url) throw new Exception("Please provide a img_url")
 
-	const userRepo = getRepository(Users)
-	const user = await userRepo.findOne({ where: {email: req.body.email , user_name:req.body.email}})
-	if(user) throw new Exception("Users already exists with this email")
+    const personajesRepo = getRepository(Personajes)
+    const personaje = await personajesRepo.findOne({ where: {nombre:req.body.nombre}})
+    if(personaje) throw new Exception("Ese persoanaje ya existe")
 
-	const newUser = getRepository(Users).create(req.body);
-	const results = await getRepository(Users).save(newUser);
+    const newPersonaje = getRepository(Personajes).create(req.body);
+    const results = await getRepository(Personajes).save(newPersonaje);
 	return res.json(results);
 }
