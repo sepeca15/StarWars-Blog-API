@@ -21,15 +21,22 @@ const router = Router();
 
 //middleware de verificación
 const verifyToken= (req: Request,res:Response, next:NextFunction) =>{
-     const token = req.header('Authorization');
+     
+    const token = req.header('Authorization')?.replace("Bearer ","");
     if(!token) return res.status(400).json('ACCESS DENIED');
 
     const decoded = jwt.verify(token as string, process.env.JWT_KEY as string)
     req.user = decoded;
+
     
     next()
 }
 
-router.get('/user',verifyToken, safe(actions.getUsers));
+router.get('/user', verifyToken, safe(actions.getUsers));
+router.get('/user/favoritos/:userid', verifyToken, safe(actions.getFavoritosID))
+router.post('/favoritos/planetas/:planetaid', verifyToken, safe(actions.postFavoritoPlaneta));
+router.post('/favoritos/personajes/:personajeid', verifyToken, safe(actions.postFavoritoPersonaje));
+router.delete('/favoritos/planetas/:planetaid', verifyToken, safe(actions.deleteFavoritoPlaneta));
+router.delete('/favoritos/personajes/:personajeid', verifyToken, safe(actions.deleteFavoritoPersonaje));
 
 export default router;

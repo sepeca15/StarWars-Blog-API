@@ -5,6 +5,7 @@ import { Exception } from './utils'
 import { Planetas } from './entities/Planetas'
 import { Personajes } from './entities/Personajes'
 import jwt from 'jsonwebtoken'
+import { Favoritos } from './entities/Favortios'
 
 export const createUser = async (req: Request, res:Response): Promise<Response> =>{
 
@@ -121,4 +122,54 @@ export const getPersonajeID = async (req: Request, res: Response): Promise<Respo
 export const getPlanetaID = async (req: Request, res: Response): Promise<Response> =>{
         const planeta = await getRepository(Planetas).findOne(req.params.planetaid);
 		return res.json(planeta);
+}
+
+export const getFavoritosID = async (req: Request, res: Response): Promise<Response> =>{
+         const favoritos = await getRepository(Favoritos).find({where:{usuarioId:req.params.userid}});
+		return res.json(favoritos);
+}
+
+interface IToken{
+    user:Users,
+    iat:number,
+    exp:number
+}
+
+
+export const postFavoritoPlaneta = async (req: Request, res: Response): Promise<Response> =>{
+        const token = req.user as IToken
+        let newFavoritoPlaneta = new Favoritos()
+        newFavoritoPlaneta.usuarioId=token.user
+        const planeta = await getRepository(Planetas).findOne(req.params.planetaid);
+        newFavoritoPlaneta.planeta=planeta as Planetas
+
+	    const results = await getRepository(Favoritos).save(newFavoritoPlaneta); 
+	    return res.json(results);
+}
+
+export const postFavoritoPersonaje = async (req: Request, res: Response): Promise<Response> =>{
+        const token = req.user as IToken
+        let newFavoritoPersonaje = new Favoritos()
+        newFavoritoPersonaje.usuarioId=token.user
+        const personaje = await getRepository(Personajes).findOne(req.params.personajeid);
+        newFavoritoPersonaje.personaje=personaje as Personajes
+
+	    const results = await getRepository(Favoritos).save(newFavoritoPersonaje); 
+	    return res.json(results);
+}
+
+export const deleteFavoritoPlaneta = async (req: Request, res: Response): Promise<Response> =>{
+        const planeta = await getRepository(Planetas).findOne(req.params.planetaid);
+        const planetaFavorito = await getRepository(Favoritos).findOne({where:{planeta:planeta}});
+        if(!planetaFavorito) throw new Exception("No tenes ese planeta en favoritos")
+        const results = await getRepository(Favoritos).delete({planeta:planeta})
+	    return res.json(results);
+}
+
+export const deleteFavoritoPersonaje = async (req: Request, res: Response): Promise<Response> =>{
+        const personaje = await getRepository(Personajes).findOne(req.params.personajeid);
+        const personajeFavorito = await getRepository(Favoritos).findOne({where:{persoaneje:personaje}});
+        if(!personajeFavorito) throw new Exception("No tienes ese personaje en favoritos")
+        const results = await getRepository(Favoritos).delete({personaje:personaje})
+	    return res.json(results);
 }

@@ -42,7 +42,8 @@ var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var router = express_1.Router();
 //middleware de verificación
 var verifyToken = function (req, res, next) {
-    var token = req.header('Authorization');
+    var _a;
+    var token = (_a = req.header('Authorization')) === null || _a === void 0 ? void 0 : _a.replace("Bearer ", "");
     if (!token)
         return res.status(400).json('ACCESS DENIED');
     var decoded = jsonwebtoken_1["default"].verify(token, process.env.JWT_KEY);
@@ -50,4 +51,9 @@ var verifyToken = function (req, res, next) {
     next();
 };
 router.get('/user', verifyToken, utils_1.safe(actions.getUsers));
+router.get('/user/favoritos/:userid', verifyToken, utils_1.safe(actions.getFavoritosID));
+router.post('/favoritos/planetas/:planetaid', verifyToken, utils_1.safe(actions.postFavoritoPlaneta));
+router.post('/favoritos/personajes/:personajeid', verifyToken, utils_1.safe(actions.postFavoritoPersonaje));
+router["delete"]('/favoritos/planetas/:planetaid', verifyToken, utils_1.safe(actions.deleteFavoritoPlaneta));
+router["delete"]('/favoritos/personajes/:personajeid', verifyToken, utils_1.safe(actions.deleteFavoritoPersonaje));
 exports["default"] = router;
