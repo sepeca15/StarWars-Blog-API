@@ -108,6 +108,8 @@ var postPersonajes = function (req, res) { return __awaiter(void 0, void 0, void
         switch (_c.label) {
             case 0:
                 results = [];
+                if (req.body.lengt)
+                    throw new utils_1.Exception("Porfavor dame un array de objetos");
                 index = 0;
                 _c.label = 1;
             case 1:
@@ -279,7 +281,7 @@ var getFavoritosID = function (req, res) { return __awaiter(void 0, void 0, void
     var favoritos;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Favortios_1.Favoritos).find({ where: { usuarioId: req.params.userid } })];
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Favortios_1.Favoritos).find({ relations: ["personaje", "planeta"], where: { usuarioId: req.params.userid } })];
             case 1:
                 favoritos = _a.sent();
                 return [2 /*return*/, res.json(favoritos)];

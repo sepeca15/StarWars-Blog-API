@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { getRepository } from 'typeorm'  // getRepository"  traer una tabla de la base de datos asociada al objeto
+import { getRepository, JoinColumn } from 'typeorm'  // getRepository"  traer una tabla de la base de datos asociada al objeto
 import { Users } from './entities/Users'
 import { Exception } from './utils'
 import { Planetas } from './entities/Planetas'
@@ -38,6 +38,7 @@ export const getPersonajes = async (req: Request, res: Response): Promise<Respon
 
 export const postPersonajes = async (req: Request, res: Response): Promise<Response> =>{
     let results = []
+    if (req.body.lengt) throw new Exception("Porfavor dame un array de objetos")
     for (let index = 0; index < req.body.length; index++) {
         
         if(!req.body[index].nombre) results.push(`Please provide a nombre ${index}`) 
@@ -72,6 +73,7 @@ export const getPlanetas = async (req: Request, res: Response): Promise<Response
 
 export const postPlanetas = async (req: Request, res: Response): Promise<Response> =>{
     let results = []
+    //if(req.body) results.push("errrorr asfasdfasdf")
     for (let index = 0; index < req.body.length; index++) {
         
         if(!req.body[index].nombre) results.push(`Please provide a nombre ${index}`) 
@@ -125,7 +127,8 @@ export const getPlanetaID = async (req: Request, res: Response): Promise<Respons
 }
 
 export const getFavoritosID = async (req: Request, res: Response): Promise<Response> =>{
-         const favoritos = await getRepository(Favoritos).find({where:{usuarioId:req.params.userid}});
+         //const favoritos = await getRepository(Favoritos).find({where:{usuarioId:req.params.userid}});
+         const favoritos = await getRepository(Favoritos).find({relations:["personaje", "planeta"],where:{usuarioId:req.params.userid}});
 		return res.json(favoritos);
 }
 
