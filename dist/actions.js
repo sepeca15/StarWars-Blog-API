@@ -108,8 +108,8 @@ var postPersonajes = function (req, res) { return __awaiter(void 0, void 0, void
         switch (_c.label) {
             case 0:
                 results = [];
-                if (req.body.lengt)
-                    throw new utils_1.Exception("Porfavor dame un array de objetos");
+                if (!req.body.length)
+                    return [2 /*return*/, res.status(400).json('que está vacio')];
                 index = 0;
                 _c.label = 1;
             case 1:
@@ -179,6 +179,8 @@ var postPlanetas = function (req, res) { return __awaiter(void 0, void 0, void 0
         switch (_c.label) {
             case 0:
                 results = [];
+                if (!req.body.length)
+                    return [2 /*return*/, res.status(400).json('que está vacio')];
                 index = 0;
                 _c.label = 1;
             case 1:

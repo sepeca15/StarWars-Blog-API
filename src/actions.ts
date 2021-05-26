@@ -38,7 +38,7 @@ export const getPersonajes = async (req: Request, res: Response): Promise<Respon
 
 export const postPersonajes = async (req: Request, res: Response): Promise<Response> =>{
     let results = []
-    if (req.body.lengt) throw new Exception("Porfavor dame un array de objetos")
+    if(!req.body.length) return res.status(400).json('que está vacio')
     for (let index = 0; index < req.body.length; index++) {
         
         if(!req.body[index].nombre) results.push(`Please provide a nombre ${index}`) 
@@ -73,7 +73,7 @@ export const getPlanetas = async (req: Request, res: Response): Promise<Response
 
 export const postPlanetas = async (req: Request, res: Response): Promise<Response> =>{
     let results = []
-    //if(req.body) results.push("errrorr asfasdfasdf")
+    if(!req.body.length) return res.status(400).json('que está vacio')
     for (let index = 0; index < req.body.length; index++) {
         
         if(!req.body[index].nombre) results.push(`Please provide a nombre ${index}`) 
